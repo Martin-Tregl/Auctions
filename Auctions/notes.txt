@@ -1,0 +1,148 @@
+Pokusy s jednoduchımi boty typu D_N a R_N_M:
+
+Bot typu D_N ma zajem koupit, pokud by jeho profit byl alespon N.
+1) Zaèal jsem vygenerováním nìkolika botù typu D_N s N <= 10 , mezi nimi nebyly velké rozdíly, vìtší N dle oèekávání mìly trochu vìtší zisky, ale prùmìrnı profit
+z jednoho obchodu byl vìtší 10, co znaènì sníilo vliv N konkrétního bota. Proto jsem pøidal D_30 a D_99. Bot D_99 dominoval zajména English auction extrémním
+zpùsobem, z 1000 poèáteèních penìz odcházel témìø vdy s pøedmìty o hodnotì vìtší 4000. Vysvìtlení je prosté, jeho potøeba velkého profitu vedla k vyèkávání,
+zatímco ostatní kupovali první poloky a kdy ostatním došli peníze, skoupil zbıvající pøedmìty za minimální cenu, zlomek jejich prùmìrné hodnoty. V té chvíli 
+11 existujících botù tedy nemìlo dostateènı obnos penìz, aby kupovali všechny pøedmìty blízko jejich prùmìrné hodnotì - evidentnì 
+( #botù * peníze_bota < #predmetu * prùmìrná cena ) 10 * 1000 < 100 * 150 . U Dutch auction nebyl vısledek tak skvìlı zkrátka proto, e profit z kadé koupì byl
+právì 99, i  tak D_99 vyhrával s velkım náskokem, s hodnotou kolem 2500. Tak jsem pøidal další tøi boty D_96 , D_97 a D_98 , èím se rozdíl znaènì zmenšil,
+ani by zcela zmizel prostor pro velmi vıhodné koupì. Tito 4 "velcí hráèi" dál s pøehelem vítìzili nad zbytkem, ovšem jejich maxima u obou typù aukcí se pohybovala
+kolem 2000.
+2) Následnì jsem zaèal pøidávat boty typu R_N_M. Bot R_N_M má zájem, pokud aktuální_cena * N/M <= hodnota. (V pøípadì neuvedení je M = 1. ) Z botù R_3_2 , R_2 ,
+R_5_2 , R_3 mìli nejlepší vısledky R_3_2 a R_2 , ostatní byli pøíliš chamtiví, pøi nìkterıch aukcích se jim nepovedl ani jeden obchod. Tak jsem pøidal R_7_4, prùmìr
+tìch dobrıch a tento bot se opakovanì umisoval na prvních pøíèkách, by ne s velkım náskokem - v poètu 18 botù u je tìké dìlat velmi vıhodné obchody, evidentnì
+se to daøí dostateènì, aby bylo mono vyhrát, ale ne tolik, aby vyhrával o parník. Ještì jsme pøidali pár botù s podobnım pomìrem R_5_3, R_8_5, R_9_5.
+V poètu 22 bot u nebyly hodnoty vítìze zdaleka tak pùsobivé jako døív, pohybovaly se mezi 1600 a 1800. Boti typu R_N_M kde 1.5 <= N/M < 2 si dál vedli velmi dobøe,
+o poznání lépe ne "velcí_hráèi" a u R èi D, zkrátka pøi tomto poètu se snaha o pøíliš velkı profit za jeden obchod vùbec nevyplácí, opakovanì se stávalo, e 
+takovım botùm se nepovedl ani jeden obchod za celıch 200 nabízenıch pøedmìtù.
+3) Zkusil jsem odebrat vsechny boty typu D_N kromì D_0. V zápasu pouze 9 botù se dle oèekávání zmohl R_3, pøekvapivì se mu v Dutch daøilo o poznání více ne
+u English, rozdíl i o 1000 ve vısledku, oproti tomu R_2 mìl o pozání lepší skore v English. Jejich prùmìr R_5_2 si vedl velmi dobøe v obou. Stejnì jako R_3 a kdysi
+velcí hráèi¨z D_N se mu daøilo dostateènì vyèkávat, ne se ostatní vystøílejí a trhnout velkou sumu na konci, zároveò i udìlat pár vıhodnıch obchodù v prùbìhu.
+4) Navrátil jsem všechny boty typu D_N a zkusil mìnit døíve konstantní parametry: poèet pøedmìtù , prùmìrnou hodnotu , rozptyl hodnot , peníze pro bota. Poèet
+pøedmìtù a mnoství penìz jde dle oèekávání proti sobì, navıšení poètu pøedmìtù bez penìz vıraznì zvıhodnòuje velké hráèe, pøebytek penìz oproti pøedmìtùm naopak 
+mnoho nákupù s malım profitem. Pøi navıšení obou se zachováním pomìru se pouze zvıší vısledné skore (pochopitelnì ve stejném pomìru) , poøadí pøíliš není ovlivnìno,
+jen o tolik, jak velkı vliv má náhoda. A vıpoèet taky trvá zbyteènì dlouho. Pøi rovnomìrném zvıšení prùmìrné hodnoty, rozptylu i penìz nás èeká pøekvapení, protoe
+hodnì záleí na multiplikátoru. Pøi vynásobení hodnotami mezi 1.5 , 2  , se toti profit kolem 100 za jeden nákup pohybuje blízko optima a velcí hráèi tak poráí
+boty R_N_M, pøi multiplikátoru 3 a vìtším se naopak velcí hráèi na zaèátku pøíliš vystøílí ani by získali dostateènı náskok a R_N_M je pak pøedeenou,
+pøi multiplikátorech vıraznì sniujících hodnoty se naopak velcí hráèi nedostanou ani k jednomu obchodu a boti R_N_M je znatelnì pøedèí, boti D_N s menším N si
+nevedou tak špatnì, napøíklad D_30 se pøi multiplikátoru 0.5 umístil na pøedních pøíèkách, pravdìpodobnì je tak blízko optimálním rozhodnutím, co by odpovídalo
+linearitì a pøedchozím pozorováním u multiplikátoru 1.5 .
+
+Pøedpoklady z dosavadních pozorování: 
+Pøi vırazném nadbytku penìz nemá smysl bıt velkım hráèem, vítìzí více malıch obchodù s malım profitem. (Neplatí to i o souèasné ekonomice v Evropì?) Naopak u pøi
+celkové hodnotì penìz jen o trochu pøevyšující poèet_pøedmìtù * prùmìrná_cena a tím spíše pøi nedostatku penìz se snaha o velmi vıhodné obchody vyplácí. Lze také 
+doufat, e ostatním botùm dojdou peníze a pùjde kupovat s obrovskım profitem, ale jeliko nelze zjistit zbıvající peníze soupeøù, nechci na to sázet v turnaji 
+s cizími boty, kde lze aspoò pár chytrıch pøedpokládat.
+Ne všechny uiteèné údaje jsou pøedem známé, napøíklkad prùmìrná_cena pøedmìtu a rozptyl_osobních_hodnot, ale z prvních nìkolika aukcí by mìlo jít získat i jejich
+dostateènì dobrou aproximaci. Stejnì tak by mìlo jít odhadnout poèet botù, kteøí se nesnaí kupovat a vyèkávají. To dohromady silnì podporuje myšlenku nekupovat
+na zaèátku, nejprve sbírat data a a po nìkolika aukcích (ale urèitì døíve ne pøed polovinou) se zaèít doopravdy snait o nákup.
+Z pozorování nebylo potvrzeno, e by boti zaloeni na pomìru zcela dominovali nad tìmi zaloenıch na rozdílu èi naopak, bude tedy vhodné navrhnout alespoò jednoho
+pokroèilého bota kadého typu i kombinovaného.
+
+Uèící princip L_ijk :
+Bot dle poètu aukcí rozdìlí prùbìh na tøi fáze, uèící s délkou danou i , kupující s délkou danou j a koncouvou o délce k. i+j+k by mìlo pokrıt celı
+prùbìh. Bìhem uèící fáze se bot snaí jen sbírat data a nic nekoupit, v rùznıch typech aukcí pùjde evidentnì o rùzná data. Ve druhé fázi, o které pøedpokldám, e
+by mìla bıt nejdelší, by bot mìl zkusit na základì sesbíranıch a prùbìnì update-ovanıch údajù uèinit nìkolik obchodù co nejblíe optimu a utratit co nejvíce penìz,
+tøetí fáze je pro utracení zbytku penìz za jeden max. dva obchody, zároveò by to mohlo ztíit situaci tìm, kteøí triviálnì èekali na konec s vidinou velmi nízkıch
+cen.
+Tento princip byl zavren, bude lepší pouít jinı, kterı zahrne velmi nízkou pravdìpodobnost ji v rané fázi, ale nezamítne tu monost zcela
+
+Uèící princip L_N_Shift_M "kmitaèi" :
+Bot má na poèátku hodnotu N, urèující v jakém minimálnním pomìru (s jakım minimálním profitem u D_L_N ...), je ochoten koupit. Pokud nekoupí, N sníí o hodnotu
+urèenou M.1, pokud koupí, N naopak zvıší o M.2 . N by typicky mìlo bıt tak vysoké, aby na zaèátku nekupoval, pokud to nebude velmi vıhodné a poèkal, a zaène
+oscilovat kolem právì ideální hodnoty.
+Bylo vyzkoušeno nìkolik botù na tomto principu, tøi z nich si vedli velmi dobøe a to D_L_200_Shift_32_4 ( pro D_L.. se pøi základním setting pomìr u M kolem 8:1  
+zdá bıt vhodnı), pak R_L_3_Shift_03_004 a R_L_5_Shift_05_01, kteøí se zvládli pøizpùsobit aktuálnímu trendu, pøi rùznıch nastaveních. Tøebae pro konkrétní
+podmínky jejich kmitání nebylo tak vhodné jako konstatní pomìr ( jako u R_5_3 pro základní nastavení) vısledné skore bylo horší jen o pár bodù a tak se umisovali
+vysoko na ebøíèku. Nadìje, e budou v této základní podobì i dostateènì pøizpùsobiví zmìnì parametrù se nenaplnila, protoe mají silnou tendenci pøizpùsobovat se
+momentální situaci a ne dlouhodobému vıvoji. Druhı nedostatek je zøejmı z konstantních posunù, kvùli nim udìlají v prùmìru jen jeden obchod za ( zvıšení_M :
+sníení_M ) aukcí. Samo o sobì to tolik nevadí, nejspíš to sníí vısledné skore jen o pár bodù, co by vysvìtlovalo rozdíl oproti R_N_M s konstantním N:M, v závìru
+aukcí by to ovšem mohlo udìlat znaènı rozdíl, pokud by šlo ještì rychle vyuít zbylé peníze. První popsanı problém by mìl jít øešit dlouhodobım omezením minima, 
+moná i maxima N, tato omezení by platila pro celı bìh jednoho typu aukce. Chci je zkusit urèit dle pomìru celkovıch penìz a celkové ceny pøedmìtù. Na druhı
+problém zkusím postupnì sniovat pomìr M.1 : M.2, díky èemu bot bude moci kupovat i nabídky èastìji.
+Postupné sniování M.1 a na dvoujnásobek M.2 mìlo ryze negativní efekt na oba souèasnì nejlepší kmitaèe a to hned u tøí rùznıch nastavení. Bylo to ovšem kvùli
+chybnì naprogramované dìdiènosti !! Chyba naštìstí nevadila, protoe pøi ji správném testování se:  A) postupné sniování M.1 skuteènì nevyplatilo; B) postupné
+zvyšování M.2 rovnì nevyplatilo (obojí zøejmì vedlo k pøíliš èastım nákupùm) ; C) ukázalo, e vìtší pomìr mezi hodnotami M je vıhodnìjší. A to i pomìr vyšší ne
+deset u bota R_L_3_Shift_05_004. To vedlo k následující hypotéze, kterou, by intuitivnì dává smysl, bude vhodné ovìøit, pøed jejím vyslovením ještì pøipomenu,
+e N bota kmitá kolem optimálního pomìru, za jakı lze v danı èas kupovat pøedmìty. Hypotéza øíká, e pokud optimální pomìr zùstává konstantní, pak bot kupuje
+pøiblinì jednou za M.2 : M.1 nabídek pøedmìtù, pokud optimální pomìr roste, bude kupovat o nìco èastìji ne M.2 : M.1 , naopak pøi poklesu bude kupovat ménì èasto.
+V pøípadì, e je hypotéza pravdivá, vznikají špatnım pomìrem M dvì hrozby: 1) Nákup v lokálním maximu, které je hluboko pod globálním; 2) Nevyuití penìz pøi
+poklesu optima od souèasné situace a do konce. Øešíme tedy tyto problémy, nìkteré z nich pùsobí proti sobì: Pøi nedostatku celkovıch penìz oproti pøedmìtù chceme
+kupovat jen za vıhodné pomìry nehledì na krátkodobé trendy, to by mìla vyøešit minimální hodnota N. Vìøím, e takové minimum lze urèit nepøíliš sloitou funkcí 
+f(poèet botù,peníze na bota,poèet pøedmìtù), to ovšem neznamená, e bude nepøíliš sloité tu funkci nalézt. Chceme zajistit, e neprošvihneme globální maximum
+optimálního pomìru hodnota:cena, pokud prošvihneme, stále chceme vyuít zbytek našich penìz. Chceme vyuívat pozorování o optimálním pomìru k úpravì M, jak
+dlouhodobı vıvoj tak krátkodobı trend, tedy nejprve obì aproximovat vhodnımi funkcemi a pak zjistit, jak tyto funkce kombinovat do jedné, která pøímo urèí M.
+
+Mìøení:
+U Dutch auction je nejlepší cena, za kterou jsme mohli nakoupit jistá, staèí si pamatovat poslední nabídku a zpracovat ji, kdy místo další nabídky pøijde novı
+pøedmìt.
+---- Chyba
+U English je situace obtínìjší, protoe informaci o prodejní cenì lze mít zcela jistì jen tehdy, kdy koupí pøedmìtu. Ani kdy bot bude mezi posledními dvìma
+zájemnci a pøestane, neví, o kolik by musel navyšovat, aby pøedmìt získal. Zároveò je zde nebezpeèí, e více soupeøù pøestane pøihazovat ve stejnı moment a tak
+pøi snaze získat informaci získáme pøedmìt, o nìj nemáme zájem. Mùeme tedy zájem pøi snaze o informaci øídit poètem jinıch zájemcù, pak ovšem musíme vyøešit,
+jaké riziko necílené koupì je pøijatelné. Napøíklad e dva soupeøi pøestanou pøihazovat ve stejnou dobu je pøíliš riskantní, u 9 je to minimální pravdìpodobnost
+a tedy zbyteèná opatrnost, lze tedy øíci, e hledanı poèet posledních hráèù spadá do < 4 , 9 > , co bude zøejmì potøeba ještì zúit.
+----
+Tak jsem zjistil, e u anglické se kdokoli mùe kdykoli vrátit do hry, neboli mám informaci, za kolik byl pøedmìt prodán i u anglické a nemusím s tím dìlat caviky.
+Zároveò to znamená, e mám kdykoli znám kromì svıch penìz, kde je to evidentní, i celkové zbıvající peníze.
+
+Nejprve zkusme nalézt vhodnou funkci pro minimální N. Pøedpokládám, e pùjde najít správná èi alespoò velmi dobrá funkce i bez ohledu na funkci urèující lokální
+úpravy. 
+Poté zkusíme zjistit, zda urèení z globálních údajù minimání N v kadém kroku zlepší vıkonnost.
+Následnì se zamìøíme na odhadnutí tendencí : V jakém pomìru se dìlají obcohdy , jak drahı je prùmìrnì náš obchod , kolik obchodù chceme provést , jak èasto chceme
+nakupovat => M1 : M2.
+Ještì jednou poštelovat minimání N (globální i pøepoèítávané). Pøi dostatku èasu ke globálnímu zkusit pøidat pøepoèet globálních parametrù na pomìr M1 : M2 jinak 
+ne minimálním N.
+
+Dle prvních pozorování je zøejmé, e od teï je tøeba rozlišovat mezi funkcemi pro english a dutch function.
+Souhrné vısledky z 51 bìhù vıchozího nastavení :
+Minimální a zøejmì opakovanì vyuívané N : 1.2
+18 strategií , 1000 penìz na bota -> Prùmìrná celková hodnota 51*100*150 = 765 000 ; Celkovı obnos penìy 51*1000*18 = 918 000.
+Anglickou vyhrál s 80 000 R_3_2 , holandskou s 78 400 R_8_5
+Uèící boti si nevedli špatnì, ale zvıšení N pøi danıch podmínkách by mìlo vıkon zlepšit. Pøi min 1.2 prùmìr pomìru nákupù pøes celı bìh se pohybuje mezi 1.25 a 1.4 
+s celkovım skore 70 a 74 tisíc u anglické,  64 a 70 tisíc u holandské.
+Po zvıšení na 1.4 :
+Prùmìr pomìrù mezi 1.43 a 1.53 naznaèuje, e jsme blízko a odpovídá vítìzùm , celkové skore 70 a 78 tisíc pro anglickou , 70 a 76 pro holandskou.
+Další zvıšení na 1.45 vısledky nezlepšilo.
+ 
+Nastavení s dvojnásobkem penìz:  
+min N = 1 :
+prùmìr mezi 1 a 1.08 , skore anglicke 111 000, holandské 105 a 107 tisíc . Vitez ovsem nema ani 112 tisíc, take prostor pro zlepšení je minimální.
+Pøekvapivì zvıšení min N na 1.15 vıraznì pomohlo holandské verzi, která se vısledky vyhoupla na 109 a 111 000.
+
+Nastavení 1.5 násobek penìz:
+min N = 1.15:
+Prùmìrné nákupy nad 1.2 ukazují, e není problém jít vıše, anglické cca 3000 mene nez vitez, holandske ucici vyhrava s 94 000.
+min N = 1.25:
+Prùmìrné nákupy 1.3 a 1.4 , skore anglicke mirne stouplo na 92.5 a 96.5 tisíc , holandská 88 a 95 tisíc.
+min N = 1.33 :
+Anglické ponìkud uškodí, zato holandské mírnì pomùe.
+
+Nastavení 0.75 násobek penìz:
+min N = 1.5 :
+Prùmìrnı nákup od 1.5 do 1.7 s pár vıjimkami a k 1.9. Skore anglicke 63.5 a 66 tisíc , holandské 59 a 67 tisíc.
+min N = 1:6 :
+Prùmìrnı nákup od 1.68 místy a k 1.95. Skore anglicke 64 a 69 (vitez) tisíc , holandské 64.5 a 68 tisíc.
+min N = 1:67 :
+Anglicka se mirne zhorsila, Holandska se stale lepsi na 67.5 a 70 tisíc.
+Holandske se vyplatí i minimální N = 1.8.
+
+Nastavení 0.5 násobek penìz:
+min N = 1.6:
+Prùmìrnı nákup od 1.65 po 1.9 , skore anglicke 47.5 a 52.5 tisíc , skore holandske 45 a 50 tisíc
+min N = 1.8:
+Prùmìrnı nákup vylítl, místy se dostal a ke tøem , by obecnì je kolem 2. Skore anglicke je tak 78 tisíc, také se dopøedu dostal bot s vetsim pomerem M1:M2 .
+min N = 2.5
+Pøi tomto nedostatku penìz je vısledek extrémní u holandske aukce. To však bude jen dùsledek toho, e jiné pouité strategie neumí s tak velkım nedostatkem penìz pracovat.
+
+Trvá to déle ne bych rád, proto zmìníme cíl: najít vhodnou funkci aproximující vısledky a porovnat její globální a prùbìné pouití. Zároveò u globálního ještì mùeme trochu
+globálnì upravit M . 
+Chceme tedy tøi typy botù:
+R_L_N0_Shift_M_GNmin (globální minimum);
+R_L_N0_Shift_M_ANmin (Actualizované minimum);
+R_L_N0_Shift_M1_Lrat_GNmin (globální minimum s upravenım pomìrem M);
+
+Od kadého tøi instance, vyzkoušet, upravit hodnoty , vyzkoušet , odevzdat nejlepší.
+
